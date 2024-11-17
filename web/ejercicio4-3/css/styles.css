@@ -43,8 +43,8 @@ header nav a:hover{
 }
 
 #contenido img{
-    width: 60%;
-    height: 50%;
+    width: 50%;
+    height: 40%;
     box-shadow:4px 3px darkblue
 }
 
@@ -70,6 +70,8 @@ header nav a:hover{
     text-decoration: underline;
     font-size: large;
     font-family: Verdana;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 #contenidoSobreMi img{
