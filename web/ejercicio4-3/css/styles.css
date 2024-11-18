@@ -6,7 +6,8 @@ header{
     background-color: #007bff;
     border:2px solid black;
     border-radius: 10px;
-    margin: 5%;
+    text-align: center;
+
 }
 
 header nav a{
@@ -99,8 +100,8 @@ header nav a:hover{
     border-radius: 10px;
 }
 
-#botonContacto{
-    border-radius: 4px;
+#cues{
+    border-radius: 10px;
 }
 
 footer{
