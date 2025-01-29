@@ -59,11 +59,12 @@
                 url: url,
                 method: 'GET',
                 success: function(data) {
+                    console.log(data);
                     if (data.teams && data.teams.length > 0) {
                         const equipo = data.teams[0];
                         mostrarInformacion(equipo);
                     } else {
-                        console.log("Nope");
+                        alert("No se encontró el equipo");
                     }
                 },
                 error: function(xhr, status, error) {
