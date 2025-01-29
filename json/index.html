@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futbolisimos</title>
+    <style>
+        body{
+            background-color: lightblue;
+            font-family: Helvetica;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 4);
+        }
+        header{
+            background-color: whitesmoke;
+            border: solid black 2px;
+            text-align: center;
+        }
+        #titulo{
+            font-family: Arial;
+        }
+        footer{
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #envio{
+            border: solid, black, 1px;
+            border-radius: 10px;
+            background-color: white;
+            transition: 3s;
+        }
+        #envio:hover{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="titulo">Bienvenido a la página de búsqueda de los equipos</h1>
+    </header>
+
+    <h1>Información del Equipo de Fútbol</h1>
+    <input type="text" id="nombre" placeholder="Ingresa el nombre del equipo">
+    <button id="envio" onclick="solicitud()">Buscar</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        function solicitud() {
+            const nombreEquipo = document.getElementById('nombre').value.trim();
+
+            const url = `https://thesportsdb.com/api/v1/json/3/searchteams.php?t=${nombreEquipo}`;
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(data) {
+                    if (data.teams && data.teams.length > 0) {
+                        const equipo = data.teams[0];
+                        mostrarInformacion(equipo);
+                    } else {
+                        console.log("Nope");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                }
+            });
+        }
+
+        function mostrarInformacion(equipo) {
+            console.log("Nombre del equipo:", equipo.strTeam);
+            console.log("Logo del equipo:", equipo.strTeamLogo);
+            console.log("País:", equipo.strCountry);
+            console.log("Estadio:", equipo.strStadium);
+            console.log("Descripción:", equipo.strDescriptionEN);
+        }
+    </script>
+
+    <footer>
+        <p>Realizado por Diego Fernandez Dominguez y Ángel García Guillena</p>
+    </footer>
+</body>
+</html>
