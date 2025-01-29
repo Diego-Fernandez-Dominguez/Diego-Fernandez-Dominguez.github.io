@@ -53,10 +53,8 @@
         function solicitud() {
             const nombreEquipo = document.getElementById('nombre').value.trim();
 
-            const url = `https://thesportsdb.com/api/v1/json/3/searchteams.php?t=${nombreEquipo}`;
-
             $.ajax({
-                url: url,
+                url:`https://thesportsdb.com/api/v1/json/3/searchteams.php?t=${nombreEquipo}`,
                 method: 'GET',
                 success: function(data) {
                     console.log(data);
@@ -73,13 +71,6 @@
             });
         }
 
-        function mostrarInformacion(equipo) {
-            console.log("Nombre del equipo:", equipo.strTeam);
-            console.log("Logo del equipo:", equipo.strTeamLogo);
-            console.log("País:", equipo.strCountry);
-            console.log("Estadio:", equipo.strStadium);
-            console.log("Descripción:", equipo.strDescriptionEN);
-        }
     </script>
 
     <footer>
