@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio 4 Json</title>
+</head>
+<body>
+   
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre">
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido">
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad">
+
+    <label for="Ciudad">Ciudad:</label>
+    <input type="text" id="ciudad">
+    <br><br>
+
+    <input type="checkbox" name="hobbies" value="Deporte" id="Deporte"><label for="Deporte" >Deporte</label>
+    <input type="checkbox" name="hobbies" value="Lectura" id="Lectura"><label for="Lectura" >Lectura</label>
+    <input type="checkbox" name="hobbies" value="Música" id="Música"><label for="Música">Música</label>
+    <input type="checkbox" name="hobbies" value="Juegos" id="Juegos"><label for="Juegos" >Juegos</label>
+    <input type="checkbox" name="hobbies" value="Cine" id="Cine"><label for="Cine">Cine</label>
+    <input type="checkbox" name="hobbies" value="Teatro" id="Teatro"><label for="Teatro">Teatro</label>
+    <input type="checkbox" name="hobbies" value="Coleccionismo" id="Coleccionismo"><label for="Coleccionismo">Coleccionismo</label>
+    <input type="checkbox" name="hobbies" value="Bricolaje" id="Bricolaje"><label for="Bricolaje" >Bricolaje</label>
+    <input type="checkbox" name="hobbies" value="Cosplay" id="Cosplay"><label for="Cosplay">Cosplay</label>
+
+    <button id="crearPersona">Cookear</button>
+
+    <br><br>
+
+    <table border="1" id="personas">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+                <th>Hobbies</th>
+            </tr>
+        </thead>
+
+
+    </table>
+
+    <br><br>
+
+    <div id="datos"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+    lista = [];
+
+    let objSerializado
+
+    let objDeSerializado
+
+    let texto=''
+
+    $('input:checkbox').on('change', function () {
+        let num = $('input:checkbox').filter(':checked').length;
+        if(num > 2){
+            $('input:checkbox').filter(':not(:checked)').prop('disabled', true);
+        } else {
+            $('input:checkbox').prop('disabled', false);
+        }
+    });
+
+
+     $('#crearPersona').click(function(){
+
+        persona = {
+
+            'nombre': $('#nombre').val(),
+            'apellido': $('#apellido').val(),
+            'edad': parseInt($('#edad').val()),
+            'ciudad': $('#ciudad').val(),
+            'hobbies': $('input[name="hobbies"]')
+            .filter(':checked')
+            .map(function () {
+                    return $(this).val();
+                }
+            ).get()
+
+
+        }
+
+        lista.push(persona)
+
+        envio(persona)
+
+        anyadirTabla(persona)
+            
+    })
+
+    function serializar(obj){
+
+        return JSON.stringify(obj)
+
+    }
+
+    function anyadirTabla(){
+
+        if(persona.nombre!="" && persona.apellido!="" && persona.edad!=""&& persona.edad>=0 && persona.ciudad!=""){
+        //Forma 1
+        $("#personas").append(
+            `<tr onclick='borrar(this)'><td>${persona.nombre}</td>
+                <td>${persona.apellido}</td>
+                <td>${persona.edad}</td>
+                <td>${persona.ciudad}</td>
+                <td>${persona.hobbies}</td></tr>`
+            )
+
+            lista.push(persona);
+
+            }else{
+                alert('No se han introducido todos los datos correctamente')
+            }
+    }
+
+
+    function envio(objeto_js) {
+        $.ajax({
+            url: "https://lm.iesnervion.es/eco.php", 
+            method: "POST",
+            data: JSON.stringify(objeto_js),
+            contentType: "application/json", // Especifica el tipo de contenido
+            dataType: "json", // La respuesta será interpretada como JSON
+            success: function(response) {
+                console.log('Envio: ')
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(`Error: ${xhr.status} - ${error}`);
+            }
+        });
+    }
+
+
+function borrar(fila){
+
+//Obtiene el valor de la tercera celda ("td:eq(2)") de la fila eliminada y la convierte en un entero
+let edadEliminada = parseInt($(fila).find("td:eq(2)").text());
+
+let pos = lista.indexOf(edadEliminada)
+if(pos!==-1){
+    lista.splice(pos,1);
+}
+$(fila).remove();
+
+}
+    
+       
+
+    </script>
+</body>
+</html>

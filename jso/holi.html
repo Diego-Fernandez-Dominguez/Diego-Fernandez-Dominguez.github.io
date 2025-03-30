@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hobbies</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <br>
+<form>
+    <label for="nombre">Nombre</label>
+    <input id="nombre" name="nombre" type="text">
+    <label for="apellidos">Apellidos</label>
+    <input id="apellidos" name="apellidos" type="text">
+    <label for="edad">Edad</label>
+    <input id="edad" name="edad" type="number">
+    <label for="ciudad">Ciudad</label>
+    <input id="ciudad" name="ciudad" type="text">
+    <button type="button" id="enviar">Enviar</button>
+    <br>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Deporte" id="Deporte"><label for="Deporte" class="form-check-label">Deporte</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Lectura" id="Lectura"><label for="Lectura" class="form-check-label">Lectura</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Música" id="Música"><label for="Música" class="form-check-label">Música</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Juegos" id="Juegos"><label for="Juegos" class="form-check-label">Juegos</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Cine" id="Cine"><label for="Cine" class="form-check-label">Cine</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Teatro" id="Teatro"><label for="Teatro" class="form-check-label">Teatro</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Coleccionismo" id="Coleccionismo"><label for="Coleccionismo" class="form-check-label">Coleccionismo</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Bricolaje" id="Bricolaje"><label for="Bricolaje" class="form-check-label">Bricolaje</label>
+    <input class="form-check-inline" type="checkbox" name="hobbies[]" value="Cosplay" id="Cosplay"><label for="Cosplay" class="form-check-label">Cosplay</label>
+</form>
+<div id="tabla"></div>
+<div id="resultados"></div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    let lista = [];
+
+    $('input:checkbox').on('change', function () {
+        let num = $('input:checkbox').filter(':checked').length;
+        if(num > 2){
+            $('input:checkbox').filter(':not(:checked)').prop('disabled', true);
+        } else {
+            $('input:checkbox').prop('disabled', false);
+        }
+    });
+
+    $("#enviar").click(function () {
+        let nombre = $("#nombre").val();
+        let apellidos = $("#apellidos").val();
+        let edad = $("#edad").val();
+        let ciudad = $("#ciudad").val();
+        let obj = {
+            "nombre": nombre,
+            "apellidos": apellidos,
+            "edad": edad,
+            "ciudad": ciudad,
+            "hobbies": $("input[name='hobbies[]']:checked").map(function () { return $(this).val(); }).get()
+        }
+        lista.push(obj);
+        simulacro();
+        envioWeb(obj);
+    });
+
+    function simulacro() {
+        let lista_serializada = serializar(lista);
+        let lista_NOserializada = deserializar(lista_serializada)
+    }
+
+    function serializar(objeto) {
+        return JSON.stringify(objeto);
+    }
+
+    function deserializar(objJson) {
+        return JSON.parse(objJson);
+    }
+
+    function envioWeb(objeto){
+        console.log(objeto)
+        $.ajax({
+            url: "https://lm.iesnervion.es/eco.php",
+            method: "POST",
+            data: JSON.stringify(objeto),
+            contentType: "application/json",
+            dataType: "json",
+            success: function(response){
+                console.log(response);
+            },
+            error: function(xhr, status, error){
+                console.log(`Error: ${xhr.status} - ${error}`);
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

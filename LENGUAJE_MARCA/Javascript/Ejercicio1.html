@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Ejercicio Javascript 1</title>
+</head>
+<body>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad">
+        <label for="numero">Numerin:</label>
+        <input type="number" id="numerin">
+        
+        <button id="ponerDatos" onclick="ponerDatos()">Subir los datos</button>
+
+        <p id="ponerTexto"></p>
+
+    <script>
+
+        function ponerDatos(){
+
+            let nombre=document.getElementById('nombre').value;
+            let edad=parseInt(document.getElementById('edad').value);
+            let numerin=parseInt(document.getElementById('numerin').value);
+
+            let mensaje=`Mi nombre es ${nombre} y tengo ${edad} anyos.`;
+
+            mensaje+= " Suma: " + (edad+numerin);
+            mensaje+= " Diferencia: " + (edad-numerin);
+            mensaje+= " Producto: " + (edad*numerin);
+            mensaje+= " Cociente: " + (edad/numerin);
+
+            ponerTexto.textContent = mensaje;
+            console.log(mensaje)
+
+        }
+
+    </script>
+</body>
+</html>

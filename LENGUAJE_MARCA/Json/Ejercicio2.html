@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Ejercicio 2 Json</title>
+
+</head>
+<body>
+   
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre">
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido">
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad">
+
+    <label for="Ciudad">Ciudad:</label>
+    <input type="text" id="ciudad">
+
+    <button id="crearPersona">Hacerlo</button>
+
+    <br><br>
+
+    <table border="1" id="personas">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+
+
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+    let objSerializado
+
+    let objDeSerializado
+
+    let texto=''
+
+     $('#crearPersona').click(function(){
+
+        persona = {
+
+            'nombre': $('#nombre').val(),
+            'apellido': $('#apellido').val(),
+            'edad': $('#edad').val(),
+            'ciudad': $('#ciudad').val(),
+
+        }
+
+        anyadirTabla()
+            
+    })
+
+    function anyadirTabla(){
+
+        //Forma 1
+        $("#personas").append(
+            `<tr><td>${persona.nombre}</td>
+                <td>${persona.apellido}</td>
+                <td>${persona.edad}</td>
+                <td>${persona.ciudad}</td></tr>`
+        )
+
+        //Forma 2
+        $("#personas").append(
+            "<tr>" + "<td>"+persona.nombre+"</td>"+
+                "<td>"+ persona.apellido+"</td>"+
+                "<td>"+persona.edad+"</td>"+
+                "<td>"+persona.ciudad+"</td>"+ "</tr>"
+        )
+
+    }
+       
+
+    </script>
+</body>
+</html>

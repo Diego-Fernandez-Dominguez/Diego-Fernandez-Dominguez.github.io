@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ciudadanos>
+    <ciudadano>
+        <nombre> Luis </nombre>
+        <apellidos> Jiménez Domínguez </apellidos>
+        <edad> 57 </edad>
+        <Ciudad-de-recidencia> Matalascañas </Ciudad-de-recidencia>
+        <profesion>
+          <profesion> Herrero </profesion>
+          <armas> Martillo </armas>
+          <habilidades>Manejo con metales calientes</habilidades>
+        </profesion>
+    </ciudadano>
+    <ciudadano>
+      <nombre> Adrian </nombre>
+      <apellidos> Francisco Montero  </apellidos>
+      <edad> 30 </edad>
+      <Ciudad-de-recidencia> Fredrikstad </Ciudad-de-recidencia>
+      <profesion>
+        <profesion> Trabajador del cuero </profesion>
+        <armas> Cuchillo </armas>
+        <habilidades>Manejo con pieles</habilidades>
+      </profesion>
+    </ciudadano>
+    <ciudadano>
+      <nombre> Pedro </nombre>
+      <apellidos> Fernández Moreno  </apellidos>
+      <edad> 74 </edad>
+      <Ciudad-de-recidencia> Cortona </Ciudad-de-recidencia>
+      <profesion>
+        <profesion> Arquitecto </profesion>
+        <armas> Lapiz </armas>
+        <habilidades> Gran conocimiento sobre construcciones </habilidades>
+      </profesion>
+    </ciudadano>
+<ciudadanos>
