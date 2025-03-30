@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio 4 MEGARETO Json</title>
+</head>
+<body>
+   
+    <label for="descripcion">Descripcion:</label>
+    <input type="text" id="descripcion">
+
+    <label for="idProveedor">idProveedor:</label>
+    <input type="text" id="idProveedor">
+
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio">
+
+    <button id="crearProducto">Cookear</button>
+
+    <br><br>
+
+    <label for="id">ID:</label>
+    <input type="number" id="idN">
+
+    <button id="borrarFila">Filear</button>
+
+    <br><br>
+
+    <table border="1" id="productos">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+                <th>idProveedor</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+
+
+    </table>
+
+    <br><br>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+     $('#crearProducto').click(function(){
+
+        obj = {
+
+            'descripcion' : $('#descripcion').val(),
+            'idProveedor': $('#idProveedor').val(),
+            'precio': $('#precio').val(),
+
+        }
+
+        envio(obj)
+            
+    })
+
+    function envio(objeto) {
+        $.ajax({
+            url: "https://lm.iesnervion.es/reto4.php", 
+            method: "POST",
+            data: JSON.stringify(objeto),
+            contentType: "application/json", // Especifica el tipo de contenido
+            dataType: "json", // La respuesta será interpretada como JSON
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(`Error: ${xhr.status} - ${error}`);
+                
+            }
+        });
+    }
+
+    function anyadirTabla(obj, id){
+
+        if(obj.descripcion!='' && obj.idProveedor!='' && obj.precio!='')
+        //Forma 1
+        $("#productos").append(
+            `<tr onclick='borrar(this)'>
+                <td>${obj.descripcion}</td>
+                <td>${obj.idProveedor}</td>
+                <td>${obj.precio}</td></tr>`
+            )
+        else{
+            alert('Anyade todos los valores')
+        }
+
+    }
+
+    $('#borrarFila').click(function(){
+
+        const xhr = new XMLHttpRequest();
+
+        id=$('#idN').val()
+
+        console.log('https://lm.iesnervion.es/reto4.php?”+id+”=' + id);
+        xhr.open('DELETE', 'https://lm.iesnervion.es/reto4.php?”+id+”=' + id, true);
+        
+        xhr.responseType = "json";
+
+        xhr.onload = function() {
+       	if (xhr.readyState == 4 && xhr.status == 201) {
+           	console.log(xhr.response);
+       	} else {
+           	console.log("Error: ${xhr.status}");
+       	}
+    	};
+        xhr.send('hola')
+        
+    })
+
+
+function borrar(fila){
+
+//Obtiene el valor de la tercera celda ("td:eq(2)") de la fila eliminada y la convierte en un entero
+let edadEliminada = parseInt($(fila).find("td:eq(2)").text());
+
+let pos = lista.indexOf(edadEliminada)
+if(pos!==-1){
+    lista.splice(pos,1);
+}
+$(fila).remove();
+
+}
+    
+       
+
+    </script>
+</body>
+</html>

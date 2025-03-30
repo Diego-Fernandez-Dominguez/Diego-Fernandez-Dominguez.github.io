@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 MEGARETO APIS JSON</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Estilo para mostrar el error en rojo */
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form>
+        <fieldset>
+            <label>ID</label>
+            <input id="id" name="id" type="number">
+            <label>Descripción</label>
+            <input id="descripcion" name="descripcion" type="text">
+            <label>ID del proveedor</label>
+            <input id="idProveedor" name="idProveedor" type="number">
+            <label>Precio</label>
+            <input id="precio" name="precio" type="number">
+
+            <!-- Botón para enviar los datos a la API -->
+            <button type="button" id="enviar">Enviar</button>
+        </fieldset>
+    </form>
+
+    <div id="titulo"></div>
+    <!-- Div para insertar ahí la tabla -->
+    <div id="tabla"></div>
+
+</body>
+
+<script>
+
+    //creamos un objeto para almacenar la tabla
+    let listaTabla = [];
+
+    //cuando se haga clic en "Enviar"
+    $("#enviar").click(function () {
+        let id = $("#id").val();
+        let descripcion = $("#descripcion").val();
+        let idProveedor = $("#idProveedor").val();
+        let precio = $("#precio").val();
+
+        // Verificamos si todos los campos están completos
+        if (!id || !descripcion || !idProveedor || !precio) {
+            $("#titulo").html("<h2 class='error'>Todos los campos son obligatorios.</h2>");
+            return;
+        }
+
+        // Creamos un objeto con los datos del formulario
+        let producto = {
+            "id": id,
+            "descripcion": descripcion,
+            "idProveedor": idProveedor,
+            "precio": precio
+        };
+
+        //enviar a la api
+        guardarProductoApi(producto);
+    });
+
+    //función para enviar los datos a la API
+    function guardarProductoApi(producto) {
+        console.log("Enviando objeto a la API:", producto);
+
+        $.ajax({
+            url: "https://lm.iesnervion.es/reto4.php",
+            method: "POST",
+            data: JSON.stringify(producto),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                console.log("Respuesta de la API:", response);
+
+                if (response.error) {
+                    $("#titulo").html("<h2 class='error'>" + response.error + "</h2>");
+                } else {
+                    // Si la respuesta es correcta, mostramos los productos
+                    $("#titulo").html("<h2>Datos enviados correctamente</h2>");
+                    cargarProductosApi();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(`Error al enviar los datos: ${xhr.status} - ${error}`);
+                $("#titulo").html("<h2 class='error'>Error al enviar los datos a la API.</h2>");
+            }
+        });
+    }
+
+    //función para solicitar los datos de la API
+    function cargarProductosApi() {
+        $.ajax({
+            url: "https://lm.iesnervion.es/reto4.php",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log("Datos obtenidos de la API:", data);
+                console.log("Esta es la lista:", data.lista);
+                crearTabla(data.lista);
+            },
+            error: function (xhr, status, error) {
+                console.log(`Error al obtener datos: ${xhr.status} - ${error}`);
+                $("#titulo").html("<h2 class='error'>Error al obtener los productos de la API.</h2>");
+            }
+        });
+    }
+
+    // Función para crear la tabla con los datos obtenidos
+    function crearTabla(lista) {
+        let tabla = "<table border='1' id='tabla_datos'>" +
+            "<thead>" +
+            "<tr>" +
+            "<th>ID</th>" +
+            "<th>Descripción</th>" +
+            "<th>Id del proveedor</th>" +
+            "<th>Precio</th>" +
+            "</tr>" +
+            "</thead><tbody>";
+
+        // Creamos una fila por cada objeto en la lista
+        lista.forEach((product, index) => {
+            tabla += nuevafila(producto);
+        });
+
+        tabla += "</tbody></table>";
+        $("#tabla").html(tabla);
+    }
+
+    // Función para crear una nueva fila en la tabla
+    function nuevafila(producto, numFila) {
+        return `<tr id="${numFila}" onclick="eliminar(${producto.id})">
+                <td>${producto.id}</td>
+                <td>${producto.descripcion}</td>
+                <td>${producto.idProveedor}</td>
+                <td>${producto.precio}</td>
+            </tr>`;
+    }
+
+    //funcion para eliminar fila y de la tabla
+    function eliminar(id) {
+        $.ajax({
+            url: "https://lm.iesnervion.es/reto4.php?id=" + id,
+            method: "DELETE",
+            dataType: "json", // Convierte la respuesta a objeto JSON 
+            success: function (data) { //200 o 201
+                console.log(data);
+
+                //recibo de la api
+                cargarProductosApi();
+            },
+            error: function (xhr, status, error) {
+                console.log(`Error: ${xhr.status} - ${error}`);
+            }
+        });
+    }
+
+</script>
+
+</html>

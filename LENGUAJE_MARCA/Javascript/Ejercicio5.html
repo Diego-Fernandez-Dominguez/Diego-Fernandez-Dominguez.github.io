@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio Javascript 5</title>
+</head>
+<body>
+    
+    <button id="boton" onclick="secreto()">Cositas</button>
+
+    <p id="muyBuenasSenyoritaJoderBuenasT">?</p>
+
+    <label for="text">Numero:</label>
+    <input type="number" id="numero">
+
+    <button id="anyadirArray" onclick="anyadirArray()">Anyadir</button>
+
+    <p id="arrayChido">-</p>
+
+    <script>
+
+    let lista= []
+
+    let numero
+
+    function secreto(){
+
+        muyBuenasSenyoritaJoderBuenasT.textContent='Maricon quien lo lea'
+
+    }
+
+    function anyadirArray(){
+
+        numero=parseInt(document.getElementById('numero').value)
+
+        console.log('Numero anyadido')
+        lista.push(numero)
+
+        if(lista.length>=5){
+            arrayChido.textContent=lista
+        }
+}
+
+    </script>
+</body>
+</html>

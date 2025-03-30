@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #botonAleatorio {
+            margin-bottom: 20px;
+        }
+        #selectorRazas {
+            margin-bottom: 20px;
+        }
+        #imagenPerro {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Ejercicio 1: Perros -->
+
+<button id="botonAleatorio" class="btn btn-primary">Aleatorio</button>
+<select id="selectorRazas" class="form-control w-50"></select>
+<img id="imagenPerro" src="" alt="">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    
+    //Funcion que haga que la foto del perro gire 90 grados cuando le doy click y lo pueda hacer constantemente
+    $('#imagenPerro').click(function() {
+        $(this).css('transform', 'rotate(90deg)');
+    });
+
+
+
+    // Llamada AJAX para obtener la lista de razas de perros
+    $.ajax({
+        url: "https://dog.ceo/api/breeds/list/all", // URL del API para obtener la lista de razas
+        method: "GET", // Método HTTP
+        dataType: "json", // Tipo de datos esperados de la respuesta
+        success: function(data) {
+            // Callback para cuando la solicitud es exitosa
+            var razas = data.message; // Obtener el objeto con las razas de perros
+            var selector = $('#selectorRazas'); // Obtener el selector de razas
+
+            // Añadir opciones al selector para razas con subcategorías
+            for (var raza in razas) {
+                if (razas[raza].length == 0) {
+                    selector.append(new Option(raza, raza));
+                } else {
+                    for (var i = 0; i < razas[raza].length; i++) {
+                        // El valor del option ya estaría formateado como perro/nacionalidad
+                        selector.append(new Option(`${razas[raza][i]} ${raza}`, `${raza}/${razas[raza][i]}`));
+                    }
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            // Callback para manejar errores en la solicitud
+            console.log(`Error: ${xhr.status} - ${error}`);
+        }
+    });
+
+    // Función para obtener una imagen de una raza seleccionada
+    function solicitudImagenRaza() {
+        var seleccion = $('#selectorRazas').val(); // Obtener el valor seleccionado del selector
+        var url = "https://dog.ceo/api/breed/" + seleccion + "/images/random"; // URL del API para obtener la imagen de la raza
+
+        // Llamada AJAX para obtener la imagen de la raza seleccionada
+        $.ajax({
+            url: url, // URL generada dinámicamente
+            method: "GET", // Método HTTP
+            dataType: "json", // Tipo de datos esperados de la respuesta
+            success: function(data) {
+                // Callback para cuando la solicitud es exitosa
+                mostrarImagen(data); // Llamada a la función para mostrar la imagen
+            },
+            error: function(xhr, status, error) {
+                // Callback para manejar errores en la solicitud
+                console.log(`Error: ${xhr.status} - ${error}`);
+            }
+        });
+    }
+
+    // Función para mostrar la imagen en el elemento <img>
+    function mostrarImagen(data) {
+        $('#imagenPerro').attr('src', data.message); // Establecer la URL de la imagen
+    }
+
+    // Evento para el botón Aleatorio
+    $('#botonAleatorio').click(function() {
+        $.ajax({
+            url: "https://dog.ceo/api/breeds/image/random",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                mostrarImagen(data);
+            },
+            error: function(xhr, status, error) {
+                console.log(`Error: ${xhr.status} - ${error}`);
+            }
+        });
+    });
+
+    // Evento para el selector de razas
+    $('#selectorRazas').change(function() {
+        solicitudImagenRaza();
+    });
+</script>
+
+</body>
+</html>

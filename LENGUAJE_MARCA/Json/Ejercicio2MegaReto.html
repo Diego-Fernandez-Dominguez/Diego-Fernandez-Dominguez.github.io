@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Ejercicio 2 MEGARETO Json</title>
+
+</head>
+<body>
+   
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre">
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido">
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad">
+
+    <label for="Ciudad">Ciudad:</label>
+    <input type="text" id="ciudad">
+
+    <button id="crearPersona">Cookear</button>
+
+    <br><br>
+
+    <table border="1" id="personas">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+
+
+    </table>
+
+    <br><br>
+
+    <div id="datos"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+        lista = [];
+
+    let objSerializado
+
+    let objDeSerializado
+
+    let texto=''
+
+     $('#crearPersona').click(function(){
+
+        persona = {
+
+            'nombre': $('#nombre').val(),
+            'apellido': $('#apellido').val(),
+            'edad': $('#edad').val(),
+            'ciudad': $('#ciudad').val(),
+
+        }
+
+        if(persona.nombre!="" && persona.apellido!="" && persona.edad!=""&& persona.edad>=0 && persona.ciudad!=""){
+
+            lista.push(persona)
+
+            let listaSe=serializar(lista)
+
+            anyadirTabla(listaSe)
+
+        }else{
+                alert('No se han introducido todos los datos correctamente')
+            }
+        
+            
+    })
+
+    function serializar(listaSe){
+
+        return JSON.stringify(listaSe)
+
+    }
+
+    function deserializar(listaDe){
+
+        return JSON.parse(listaDe)
+
+    }   
+
+    function anyadirTabla(objetos){
+
+        let liston=deserializar(objetos)
+
+        $(".anyadido").html('')
+
+        console.log(liston)
+
+        liston.forEach(elemento => {
+
+            if(elemento.nombre!="" && elemento.apellido!="" && elemento.edad!=""&& elemento.edad>=0 && elemento.ciudad!=""){
+
+            $("#personas").append(
+            `<tr class='anyadido' onclick='borrar(this)'><td>${elemento.nombre}</td>
+                <td>${elemento.apellido}</td>
+                <td>${elemento.edad}</td>
+                <td>${elemento.ciudad}</td></tr>`
+        )
+    }
+        });
+            
+            actualizarDatos();
+
+            
+    }
+
+    function borrar(fila){
+
+        lista.splice(fila)
+
+        $(fila).remove();
+
+        actualizarDatos();
+        
+    }
+
+    
+
+    function actualizarDatos(){
+
+        let suma=0;
+        let maximo=-1;
+        let media=0;
+        let minimo=240000000000;
+
+        for(i=0;i<lista.length;i++){
+            suma+=parseInt(lista[i])
+            if(parseInt(lista[i])>maximo){
+                maximo=parseInt(lista[i])
+            }
+            if(parseInt(lista[i])<minimo){
+                minimo=parseInt(lista[i])
+            }
+        }
+
+        media=(suma/lista.length);
+
+        if(lista.length>0){
+            $('#datos').html(`Suma: ${suma} 
+            & Media: ${media} 
+            & Maximo: ${maximo} 
+            & Minimo: ${minimo}`)
+        }else{
+
+            $('#datos').html(``)
+            
+        }
+
+        
+
+    }
+       
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio Javascript 3</title>
+</head>
+<body>
+    
+    <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <label for="numero">Numerin:</label>
+        <input type="number" id="numerin">
+        <label for="numero2">Numerin2:</label>
+        <input type="number" id="numerin2">
+        <label for="anyo">Anyo:</label>
+        <input type="number" id="anyo">
+        
+        <button id="saludar" onclick="saludar()">Saludar</button>
+        <button id="promedio" onclick="promediar()">Promedio</button>
+        <button id="bisiestear" onclick="bisiestor()">Bisiesto</button>
+
+        <p id="saludado"></p>
+        <p id="promedior"></p>
+        <p id="posi"></p>
+        <p id="bisiesto"></p>
+
+    <script>
+
+        let nombre
+        let num1
+        let num2
+        let anyo
+
+        function saludar(){
+
+        nombre=document.getElementById('nombre').value
+
+        saludado.textContent=`Hola, ${nombre}`
+
+        }
+
+        function promediar(){
+
+            num1=parseInt(document.getElementById('numerin').value)
+            num2=parseInt(document.getElementById('numerin2').value)
+
+            promedior.textContent=(num1+num2)/2
+
+            if(num1>0){
+            
+                posi.textContent=`Es positivo`
+
+            }else if (num1<0){
+
+                posi.textContent=`Es negativo`
+
+            }else{
+
+                posi.textContent=`Es cero`
+
+            }
+
+        }
+
+        function bisiestor(){
+
+            anyo=parseInt(document.getElementById('anyo').value)
+
+            if(anyo%4==0){
+              bisiesto.textContent=`Es bisisesto`
+            }else{
+                bisiesto.textContent=`No es bisisesto`
+            }
+
+        }
+
+    </script>
+</body>
+</html>

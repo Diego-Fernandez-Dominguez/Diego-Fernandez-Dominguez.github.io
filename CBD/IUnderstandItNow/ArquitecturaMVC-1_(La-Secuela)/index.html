@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.1-DiegoFernandezDominguez</title>
+</head>
+<style>
+    .pendiente{
+        color: red;
+    }
+    .acabado{
+        color: green;
+    }
+</style>
+<body>
+    <h1>Tareas</h1>
+
+    <form id="formulario-tarea">
+        <input type="text" id="entrada-tarea" placeholder="Tarea">
+        <input type="text" id="entrada-descripcion" placeholder="Descripción">
+        <button type="submit">Agregar</button>
+    </form>
+    <br>    
+    <table id="tareas" border="1">
+        <thead>
+            <tr>
+                <th>Tarea</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="lista-tareas"></tbody>
+    </table>
+
+    <script src="js/model.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/controller.js"></script>
+</body>
+</html>

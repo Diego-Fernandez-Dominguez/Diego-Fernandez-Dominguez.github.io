@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio Javascript 2</title>
+</head>
+<body>
+    
+    <label for="edad">Edad:</label>
+        <input type="number" id="edad">
+        
+        <button id="llamadas" onclick="llamadas()">Funciones</button>
+
+        <p id="parImpar"></p>
+        <p id="mayorEdad"></p>
+        <p id="cont10"></p>
+        <p id="suma100"></p>
+
+    <script>
+
+        function llamadas(){
+
+            let edad=parseInt(document.getElementById('edad').value)
+
+            if(edad%2==0){
+                parImpar.textContent='Es par'
+            }else{
+                parImpar.textContent='Es impar'
+            }
+
+            if(edad>=18){
+                mayorEdad.textContent='Es mayor de edad'
+            }else{
+                mayorEdad.textContent='Es menor de edad'
+            }
+
+            let mensaje=''
+
+            for(i=0;i<11;i++){
+
+                mensaje+= ` ${i}`
+                console.log(i)
+
+            }
+
+            cont10.textContent=mensaje
+
+            let suma=0
+
+            for(i=0;i<101;i++){
+
+                suma+=i    
+
+            }
+
+            console.log(suma)
+
+            suma100.textContent=suma
+
+        }
+
+    </script>
+</body>
+</html>
