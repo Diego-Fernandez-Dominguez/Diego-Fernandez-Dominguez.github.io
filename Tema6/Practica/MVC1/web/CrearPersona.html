@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Persona</title>
+</head>
+<body>
+    <div id="titulo">
+        <h1>MVC-1 CrearPersona</h1>
+    </div>
+    <div id="vuelta">
+        <a href="../index.html"><button id="inicio">Vuelta patras</button></a>
+    </div>
+
+    <div id="formulario">
+        <h2>Formulario de Creación de Persona</h2>
+        <form id="crearPersonaForm" onsubmit="return false;">
+            <label for="dni">DNI:</label><br>
+            <input type="text" id="dni" name="dni"><br>
+
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre"><br>
+
+            <label for="apellido">Apellido:</label><br>
+            <input type="text" id="apellido" name="apellido"><br>
+
+            <label for="edad">Edad:</label><br>
+            <input type="number" id="edad" name="edad"><br><br>
+
+            <button class="buttonCrear" id="bCP" type="submit">Crear Persona</button>
+        </form>
+    </div>
+
+    <div id="personaCreada"></div>
+
+    <script src="../js/Modelo/Entidad.js"></script>
+    <script src="../js/Modelo/Modelo.js"></script>
+    <script src="../js/Vista/VistaCrearPersona.js"></script>
+    <script src="../js/Controlador/Controlador.js"></script>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const controlador = new Controlador();
+        });
+    </script>
+</body>
+</html>
