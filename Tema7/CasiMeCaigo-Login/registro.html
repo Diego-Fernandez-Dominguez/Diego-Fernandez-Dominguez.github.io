@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>CasiMeCaigo - Register</title>
+</head>
+<body>
+    <h1>CasiMeCaigo - Register</h1>
+    <p>Por favor, registrate para continuar.</p>
+
+    <form id="register">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email">Correo electronico:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required><br><br>
+    </form>
+    <button type="button" id="resgister">Registrarse</button>
+    <br><br>
+    <p>Quiere inicia' sezion: <a href="login.html">Iniciar sesion</a></p>
+    
+</body>
+ <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAh0x4NKgtU1dpy2we_LnuVeS1shHRPRXM",
+    authDomain: "casimecaigo-login.firebaseapp.com",
+    projectId: "casimecaigo-login",
+    storageBucket: "casimecaigo-login.firebasestorage.app",
+    messagingSenderId: "137651426949",
+    appId: "1:137651426949:web:693e2669e4855b4f907bec",
+    measurementId: "G-E9VLD3YG3E"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</html>
