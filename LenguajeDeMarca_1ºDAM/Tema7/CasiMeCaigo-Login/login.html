@@ -26,21 +26,6 @@
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
 
-    // Registro
-    document.getElementById("formRegistro").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("emailRegistro").value;
-      const password = document.getElementById("passwordRegistro").value;
-
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          alert("Usuario registrado: " + userCredential.user.email);
-        })
-        .catch((error) => {
-          alert("Error al registrar: " + error.message);
-        });
-    });
-
     // Login
     document.getElementById("formLogin").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -49,7 +34,7 @@
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          alert("Login exitoso: " + userCredential.user.email);
+          window.location.href = "logged.html";
         })
         .catch((error) => {
           alert("Error al iniciar sesión: " + error.message);
@@ -68,21 +53,16 @@
 </head>
 <body>
   <header>
-    <h1>Bienvenido a: CasiMeCaigo</h1>
+    <h1>MeCaí - Login</h1>
   </header>
 
-  <h2>CasiMeCaigo-Registro</h2>
-  <form id="formRegistro">
-    <input type="email" id="emailRegistro" placeholder="Correo electrónico" required><br>
-    <input type="password" id="passwordRegistro" placeholder="Contraseña" required><br>
-    <button type="submit">Registrarse</button>
-  </form>
-
-  <h2>MeCaí-Login</h2>
+  <h2>Iniciar sesion</h2>
   <form id="formLogin">
     <input type="email" id="emailLogin" placeholder="Correo electrónico" required><br>
     <input type="password" id="passwordLogin" placeholder="Contraseña" required><br>
+    <br>
     <button type="submit">Iniciar sesión</button>
+    <p>Chiquilloooo, si no tiene' cuenta: <a href="registro.html">Regístrarse</a></p>
   </form>
 </body>
 </html>

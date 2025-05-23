@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>MeLevanté - Logged</title>
+</head>
+<body>
+    <script type="module">
+      import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyAh0x4NKgtU1dpy2we_LnuVeS1shHRPRXM",
+        authDomain: "casimecaigo-login.firebaseapp.com",
+        projectId: "casimecaigo-login",
+        storageBucket: "casimecaigo-login.firebasestorage.app",
+        messagingSenderId: "137651426949",
+        appId: "1:137651426949:web:693e2669e4855b4f907bec",
+        measurementId: "G-E9VLD3YG3E"
+      };
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Mostrar usuario conectado por consola
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log('Usuario conectado:', user.email);
+        } else {
+          console.log('No hay usuario conectado');
+        }
+      });
+      document.getElementById('logoutBtn').onclick = () => {
+        signOut(auth).then(() => {
+          window.location.href = 'login.html';
+        });
+      };
+    </script>
+    <h1>MeLevanté - Logged</h1>
+    <p>Bienvenido a MeLevanté, pisha, felisidade' :b</p>
+    <button id="logoutBtn">Cerrar sesión</button>
+</body>
+</html>
